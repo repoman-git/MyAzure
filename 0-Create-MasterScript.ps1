@@ -10,7 +10,7 @@ if (-not (Get-Module -ListAvailable -Name Az)) {
 Connect-AzAccount
 
 # Set the path where your scripts are stored
-$scriptPath = "C:\PS_Source\MyAzure\SingleVM-SingleVnet"
+$scriptPath = "C:\PS_Source\MyAzure\MyAzure"
 $results = @()
 
 # Specify the resource group and location
@@ -57,3 +57,4 @@ $deploymentSummary = if($overallSuccess) {"Deployment succeeded"} else {"Deploym
 $deploymentSummaryPath = "$scriptPath\deployment_summary.txt"
 $deploymentSummary | Out-File -FilePath $deploymentSummaryPath
 Write-Output "Deployment summary written to $deploymentSummaryPath"
+clear
