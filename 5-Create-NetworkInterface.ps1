@@ -1,10 +1,10 @@
 # 5-Create-NetworkInterface.ps1
 param (
     [Parameter(Mandatory = $true)]
-    [string]$ResourceGroupName,
+    [string]$MyRGName,
 
     [Parameter(Mandatory = $true)]
-    [string]$Location,
+    [string]$Mylocation,
 
     [Parameter(Mandatory = $true)]
     [string]$NICName,
@@ -20,8 +20,8 @@ param (
 )
 
 try {
-    $nic = New-AzNetworkInterface -Name $NICName -ResourceGroupName $ResourceGroupName -Location $Location -SubnetId $SubnetId -PublicIpAddressId $PublicIPId -NetworkSecurityGroupId $NSGId
-    Write-Output "Network Interface '$NICName' created in '$Location'."
+    $nic = New-AzNetworkInterface -Name $NICName -ResourceGroupName $MyRGName -Location $Mylocation -SubnetId $SubnetId -PublicIpAddressId $PublicIPId -NetworkSecurityGroupId $NSGId
+    Write-Output "Network Interface '$NICName' created in '$Mylocation'."
     return $true
 } catch {
     Write-Error "Error creating Network Interface: $_"

@@ -1,10 +1,10 @@
 # 6-Create-VM.ps1
 param (
     [Parameter(Mandatory = $true)]
-    [string]$ResourceGroupName,
+    [string]$MyRGName,
 
     [Parameter(Mandatory = $true)]
-    [string]$Location,
+    [string]$Mylocation,
 
     [Parameter(Mandatory = $true)]
     [string]$VMName,
@@ -37,8 +37,8 @@ try {
                 Add-AzVMNetworkInterface -Id $NICId |
                 Set-AzVMOSDisk -Name "$VMName-osdisk" -CreateOption FromImage -StorageAccountType "Standard_LRS"
 
-    New-AzVM -ResourceGroupName $ResourceGroupName -Location $Location -VM $vmConfig -Verbose
-    Write-Output "VM '$VMName' successfully created in '$Location'."
+    New-AzVM -ResourceGroupName $MyRGName -Location $Mylocation -VM $vmConfig -Verbose
+    Write-Output "VM '$VMName' successfully created in '$Mylocation'."
     return $true
 } catch {
     Write-Error "Error encountered during VM creation: $_"

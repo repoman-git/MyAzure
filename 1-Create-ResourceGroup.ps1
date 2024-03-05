@@ -2,15 +2,15 @@
 
 param (
     [Parameter(Mandatory=$true)]
-    [string]$ResourceGroupName,
+    [string]$MyRGName = "$MyRGName"
 
     [Parameter(Mandatory=$true)]
-    [string]$Location
+    [string]$Mylocation = "$Mylocation"
 )
 
 try {
-    New-AzResourceGroup -Name $ResourceGroupName -Location $Location
-    Write-Output "Resource Group '$ResourceGroupName' created in '$Location'."
+    New-AzResourceGroup -Name $MyRGName -Location $Mylocation
+    Write-Output "Resource Group '$MyRGName' created in '$Mylocation'."
     return $true
 } catch {
     Write-Error "Error creating Resource Group: $_"

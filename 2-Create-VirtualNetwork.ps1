@@ -1,10 +1,10 @@
 # 2-Create-VirtualNetwork.ps1
 param (
     [Parameter(Mandatory=$true)]
-    [string]$ResourceGroupName,
+    [string]$MyRGName,
 
     [Parameter(Mandatory=$true)]
-    [string]$Location,
+    [string]$Mylocation,
 
     [Parameter(Mandatory=$true)]
     [string]$VNetName,
@@ -20,9 +20,9 @@ param (
 )
 
 try {
-    $vnet = New-AzVirtualNetwork -ResourceGroupName $ResourceGroupName -Location $Location -Name $VNetName -AddressPrefix $VNetAddressSpace
+    $vnet = New-AzVirtualNetwork -ResourceGroupName $MyRGName -Location $Mylocation -Name $VNetName -AddressPrefix $VNetAddressSpace
     Add-AzVirtualNetworkSubnetConfig -Name $SubnetName -AddressPrefix $SubnetAddressPrefix -VirtualNetwork $vnet | Set-AzVirtualNetwork
-    Write-Output "Virtual Network '$VNetName' with Subnet '$SubnetName' created in '$Location'."
+    Write-Output "Virtual Network '$VNetName' with Subnet '$SubnetName' created in '$Mylocation'."
     return $true
 } catch {
     Write-Error "Error creating Virtual Network: $_"
