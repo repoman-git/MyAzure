@@ -26,6 +26,15 @@ Function Save-ResultData {
     $global:results += @{ "Step" = $Step; "Result" = $Result }
 }
 
+
+# 1. Create Resource Group
+$result = & "$scriptPath\1-Create-ResourceGroup.ps1" -ResourceGroupName $resourceGroupName -Location $location
+Save-ResultData -Step "Create Resource Group" -Result $result
+
+# 2. Create Virtual Network
+$result = & "$scriptPath\2-Create-VirtualNetwork.ps1" -ResourceGroupName $resourceGroupName -Location $location -VNetName "MyVNet" -VNetAddressSpace "10.0.0.0/16" -SubnetName "MySubnet" -SubnetAddressPrefix "10.0.1.0/24"
+Capture-Result -Step "Create Virtual Network" -Result $result
+
 # Create Public IP Address
 $result = & "$scriptPath\3-Create-PublicIP.ps1" -ResourceGroupName $resourceGroupName -Location $location -PublicIPName "MyPublicIP"
 Capture-Result -Step "Create Public IP Address" -Result $result
@@ -57,4 +66,5 @@ $deploymentSummary = if($overallSuccess) {"Deployment succeeded"} else {"Deploym
 $deploymentSummaryPath = "$scriptPath\deployment_summary.txt"
 $deploymentSummary | Out-File -FilePath $deploymentSummaryPath
 Write-Output "Deployment summary written to $deploymentSummaryPath"
-clear
+# Capture results and save them
+Save-ResultData -Step "Script Execution" -Result $true
